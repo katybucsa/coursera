@@ -1,0 +1,46 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.pydevproject
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+/.idea
+.idea
+*.iws
+*.iml
+*.ipr
+./.idea
+/.run/
+/logs
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+/build/
+
+### VS Code ###
+.vscode/
+.vs
+Debug/
+*.vcxproj.*
+*.vcxproj
+*.sln
+
+
+.metadata/
+venv
+__pycache__
+*.exe

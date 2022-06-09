@@ -1,7 +1,7 @@
 (* if you use this function to compare two strings (returns true if the same
    string), then you avoid several of the functions in problem 1 having
    polymorphic types that may be confusing *)
-fun same_string(s1 : string, s2 : string) = (* string * string *)
+fun same_string (s1 : string, s2 : string) = (* string * string *)
     s1 = s2
 
 (* put your solutions for problem 1 here *)
@@ -9,7 +9,7 @@ fun same_string(s1 : string, s2 : string) = (* string * string *)
 if the string is not in the list, else return SOME lst where lst is identical to the argument 
 list except the string is not in it. You may assume the string is in the list at most once. 
 Use same_string, provided to you, to compare strings. Sample solution is around 8 lines. *)
-fun all_except_option(s, xs) = (* string * string list  *)
+fun all_except_option (s, xs) = (* string * string list  *)
     case xs of
 	[] => NONE
       | x::xs' => case same_string(s, x) of
@@ -30,7 +30,7 @@ get_substitutions1([["Fred","Fredrick"],["Jeff","Jeffrey"],["Geoff","Jeff","Jeff
 "Jeff")
 (* answer: ["Jeffrey","Geoff","Jeffrey"] *)
 Use part (a) and ML’s list-append (@) but no other helper functions. Sample solution is around 6 lines.  *)
-fun get_substitutions1(strs, s) = (* string list list * string *)
+fun get_substitutions1 (strs, s) = (* string list list * string *)
     case strs of
 	[] => []
       | h::t => case all_except_option(s, h) of
@@ -38,8 +38,16 @@ fun get_substitutions1(strs, s) = (* string list list * string *)
 		  | SOME res => res @ get_substitutions1(t,s) 
 						  
 (* c) Write a function get_substitutions2, which is like get_substitutions1 except it uses a tail-recursive local helper function. *)
-
-
+fun get_substitutions2 (strs, s) = (* string list list * string *)
+    let fun f (strs, s, acc) =
+	    case strs of
+		[] => acc
+	      | h::t => case all_except_option(s, h) of
+			    NONE => f(t,s, acc)
+			  | SOME res => f(t, s, acc @ res)
+    in
+	f(strs, s, [])
+    end
 
 
 

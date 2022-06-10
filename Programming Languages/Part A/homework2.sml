@@ -1,10 +1,14 @@
+(* 1. This problem involves using first-name substitutions to come up with alternate names. For example,
+Fredrick William Smith could also be Fred William Smith or Freddie William Smith. Only part (d) is
+specifically about this, but the other problems are helpful. *)
+
 (* if you use this function to compare two strings (returns true if the same
    string), then you avoid several of the functions in problem 1 having
    polymorphic types that may be confusing *)
 fun same_string (s1 : string, s2 : string) = (* string * string *)
     s1 = s2
 
-(* put your solutions for problem 1 here *)
+	     
 (* a) Write a function all_except_option, which takes a string and a string list. Return NONE 
 if the string is not in the list, else return SOME lst where lst is identical to the argument 
 list except the string is not in it. You may assume the string is in the list at most once. 
@@ -73,7 +77,19 @@ fun similar_names (strs, r as {first = f, middle = m, last = l}) =
     end
 							
 
-
+(* 2. This problem involves a solitaire card game invented just for this question. You will write a program that
+tracks the progress of a game; writing a game player is a challenge problem. You can do parts (a)–(e) before
+understanding the game if you wish.
+A game is played with a card-list and a goal. The player has a list of held-cards, initially empty. The player
+makes a move by either drawing, which means removing the first card in the card-list from the card-list and
+adding it to the held-cards, or discarding, which means choosing one of the held-cards to remove. The game
+ends either when the player chooses to make no more moves or when the sum of the values of the held-cards
+is greater than the goal.
+The objective is to end the game with a low score (0 is best). Scoring works as follows: Let sum be the sum
+of the values of the held-cards. If sum is greater than goal, the preliminary score is three times (sum−goal),
+else the preliminary score is (goal − sum). The score is the preliminary score unless all the held-cards are
+the same color, in which case the score is the preliminary score divided by 2 (and rounded down as usual
+with integer division; use ML’s div operator). *)
 
 (* you may assume that Num is always used with values 2, 3, ..., 10
    though it will not really come up *)

@@ -67,7 +67,7 @@ fun similar_names (strs, r as {first = f, middle = m, last = l}) =
     let fun helper_f (strs, r as {first = f, middle = m, last = l}, acc) =
 	    case strs of
 		[] => acc
-		   | h::t => helper_f(t, r, acc @ [{first=h, middle = m, last = l}])
+	      | h::t => helper_f(t, r, acc @ [{first=h, middle = m, last = l}])
     in
 	helper_f(get_substitutions2(strs, f), r, [r])
     end

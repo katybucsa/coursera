@@ -77,6 +77,8 @@ fun similar_names (strs, r as {first = f, middle = m, last = l}) =
     end
 							
 
+
+
 (* 2. This problem involves a solitaire card game invented just for this question. You will write a program that
 tracks the progress of a game; writing a game player is a challenge problem. You can do parts (a)–(e) before
 understanding the game if you wish.
@@ -103,4 +105,10 @@ datatype move = Discard of card | Draw
 exception IllegalMove
 	      
 
-(* put your solutions for problem 2 here *)
+(* a) Write a function card_color, which takes a card and returns its color (spades and clubs are black,
+diamonds and hearts are red). Note: One case-expression is enough. *)
+fun card_color ((s, r)) = (* card => color *)
+    case s of
+	(Clubs | Spades) => Black
+      | _ => Red 
+    

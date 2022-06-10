@@ -107,8 +107,17 @@ exception IllegalMove
 
 (* a) Write a function card_color, which takes a card and returns its color (spades and clubs are black,
 diamonds and hearts are red). Note: One case-expression is enough. *)
-fun card_color ((s, r)) = (* card => color *)
+fun card_color (s, r) = (* card => color *)
     case s of
 	(Clubs | Spades) => Black
-      | _ => Red 
+      | _ => Red
+
+
+(* b) ) Write a function card_value, which takes a card and returns its value (numbered cards have their
+number as the value, aces are 11, everything else is 10). Note: One case-expression is enough *)
+fun card_value (s, r) = (* card => *)
+    case r of
+	(Jack | Queen | King) => 10
+      | Ace => 11
+      | Num n => n  
     

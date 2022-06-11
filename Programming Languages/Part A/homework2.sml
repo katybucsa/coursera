@@ -160,3 +160,17 @@ fun sum_cards (card_list) = (* card list => int *)
     in
 	add_values(card_list, 0)
     end
+
+
+(* f) Write a function score, which takes a card list (the held-cards) and an int (the goal) and computes
+the score as described above. *)
+fun score (card_list, goal) = (* card list * int => int *)
+    let fun preliminary_score (sum) =
+	    case sum > goal of
+		true => 3 * (sum - goal)
+	      | false => goal - sum
+    in
+	case all_same_color(card_list) of
+	    true => preliminary_score(sum_cards(card_list)) div 2
+	  | false => preliminary_score(sum_cards(card_list))
+    end

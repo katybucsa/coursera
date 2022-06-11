@@ -133,3 +133,18 @@ fun remove_card (cs, c, e) = (* card list * card * exn => card list *)
 				 [] => [h]
 			       | l => h::l	     
     
+(* d)  Write a function all_same_color, which takes a list of cards and returns true if all the cards in the
+list are the same color. Hint: An elegant solution is very similar to one of the functions using nested
+pattern-matching in the lectures. *)
+fun all_same_color (card_list) = (* card list => bool *)
+    let fun all_same (cl, clr) =
+	    case cl of
+		[] => true
+	      | h::t => case card_color(h) = clr of
+			    true => all_same(t, clr)
+			  | false => false
+    in
+	case card_list of
+	    ([] | _::[]) => true
+	  | h::t => all_same(t, card_color(h))
+    end

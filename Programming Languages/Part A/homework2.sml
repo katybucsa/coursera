@@ -115,9 +115,21 @@ fun card_color (s, r) = (* card => color *)
 
 (* b) ) Write a function card_value, which takes a card and returns its value (numbered cards have their
 number as the value, aces are 11, everything else is 10). Note: One case-expression is enough *)
-fun card_value (s, r) = (* card => *)
+fun card_value (s, r) = (* card => int*)
     case r of
 	(Jack | Queen | King) => 10
       | Ace => 11
-      | Num n => n  
+      | Num n => n
+
+(* c)Write a function remove_card, which takes a list of cards cs, a card c, and an exception e. It returns a
+list that has all the elements of cs except c. If c is in the list more than once, remove only the first one.
+If c is not in the list, raise the exception e. You can compare cards with =. *)
+fun remove_card (cs, c, e) = (* card list * card * exn => card list *)
+    case cs of
+	[] => raise e
+      | h::t => case h = c of
+		    true => t
+		  | false => case remove_card(t, c, e) of
+				 [] => [h]
+			       | l => h::l	     
     

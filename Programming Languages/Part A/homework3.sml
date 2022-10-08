@@ -167,3 +167,9 @@ fun match (valuu, pat) =
       | (Constructor (s1, v), ConstructorP (s2, p)) => if s1 = s2 then match (v, p) else NONE
       | _ => NONE
 								 
+
+
+(* 12. Write a function first_match that takes a value and a list of patterns and returns a (string * valu) list option, namely NONE if no pattern in the list matches or SOME lst where lst is the list of bindings for the first pattern in the list that matches. Use first_answer and a handle-expression. Hints: Sample solution is 3 lines. *)
+
+fun first_match valuu pat_list =
+    SOME (first_answer (fn el => match (valuu, el)) pat_list) handle NoAnswer => NONE

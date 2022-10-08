@@ -49,3 +49,17 @@ fun longest_string1 str_list = List.foldl (fn (s, acc) => if String.size(s) > St
 (* 3. Write a function longest_string2 that is exactly like longest_string1 except in the case of ties it returns the string closest to the end of the list. Your solution should be almost an exact copy of longest_string1. Still use foldl and String.size. *)
 					  
 fun longest_string2 str_list = List.foldl (fn (s, acc) => if String.size(s) >= String.size(acc) then s else acc) "" str_list
+
+
+
+(* 4. Write functions longest_string_helper, longest_string3, and longest_string4 such that:
+   • longest_string3 has the same behavior as longest_string1 and longest_string4 has the same behavior as longest_string2.
+   • longest_string_helper has type (int * int -> bool) -> string list -> string (notice the currying). This function will look a lot like longest_string1 and longest_string2 but is more general because it takes a function as an argument.
+   • If longest_string_helper is passed a function that behaves like > (so it returns true exactly when its first argument is stricly greater than its second), then the function returned has the same behavior as longest_string1.
+   • longest_string3 and longest_string4 are defined with val-bindings and partial applications of longest_string_helper. *)					  
+
+fun longest_string_helper f str_list = List.foldl (fn (s, acc) => if f (s, acc) then s else acc) "" str_list
+
+val longest_string3 = longest_string_helper (fn (s1, s2) => String.size(s1) > String.size(s2))
+
+val longest_string4 = longest_string_helper (fn (s1, s2) => String.size(s1) >= String.size(s2))

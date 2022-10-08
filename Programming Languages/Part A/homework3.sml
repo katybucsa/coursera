@@ -152,3 +152,18 @@ fun check_pat pat =
     in
 	check_uniq_elems (get_all_strings [] pat)
     end
+
+
+
+(* 11. Write a function match that takes a valu * pattern and returns a (string * valu) list option, namely NONE if the pattern does not match and SOME lst where lst is the list of bindings if it does. Note that if the value matches but the pattern has no patterns of the form Variable s, then the result is SOME []. Hints: Sample solution has one case expression with 7 branches. The branch for tuples uses all_answers and ListPair.zip. Sample solution is 13 lines. Remember to look above for the rules for what patterns match what values, and what bindings they produce. These are hints: We are not requiring all_answers and ListPair.zip here, but they make it easier. *)
+
+fun match (valuu, pat) =
+    case (valuu, pat) of
+	((_, Wildcard) | (Unit, UnitP) | (Const _, ConstP _)) => SOME []
+      | (_, Variable s) => SOME [(s, valuu)]
+      | (Tuple vs, TupleP ps) => if List.length vs = List.length ps
+				 then all_answers match (ListPair.zip(vs, ps))
+				 else NONE
+      | (Constructor (s1, v), ConstructorP (s2, p)) => if s1 = s2 then match (v, p) else NONE
+      | _ => NONE
+								 

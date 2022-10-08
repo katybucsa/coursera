@@ -39,7 +39,7 @@ datatype typ = Anything
 fun only_capitals str_list = List.filter (fn str => Char.isUpper(String.sub(str, 0))) str_list
 
 
-
+ 
 (* 2. Write a function longest_string1 that takes a string list and returns the longest string in the list. If the list is empty, return "". In the case of a tie, return the string closest to the beginning of the list. Use foldl, String.size, and no recursion (other than the implementation of foldl is recursive). *)
 
 fun longest_string1 str_list = List.foldl (fn (s, acc) => if String.size(s) > String.size(acc) then s else acc) "" str_list
@@ -103,3 +103,24 @@ fun all_answers f elems =
     end
 	
 			    
+
+(* Given valu v and pattern p, either p matches v or not. If it does, the match produces a list of string * valu pairs; order in the list does not matter. The rules for matching should be unsurprising:
+   • Wildcard matches everything and produces the empty list of bindings.
+   • Variable s matches any value v and produces the one-element list holding (s,v).
+   • UnitP matches only Unit and produces the empty list of bindings.
+   • ConstP 17 matches only Const 17 and produces the empty list of bindings (and similarly for other integers).
+   • TupleP ps matches a value of the form Tuple vs if ps and vs have the same length and for all i, the i th element of ps matches the i th element of vs. The list of bindings produced is all the lists from the nested pattern matches appended together.
+   • ConstructorP(s1,p) matches Constructor(s2,v) if s1 and s2 are the same string (you can compare them with =) and p matches v. The list of bindings produced is the list from the nested pattern match. We call the strings s1 and s2 the constructor name.
+   • Nothing else matches.  *)
+
+
+(* 9. (This problem uses the pattern datatype but is not really about pattern-matching.) A function g has been provided to you. *)
+
+(* (a) Use g to define a function count_wildcards that takes a pattern and returns how many Wildcard patterns it contains. *)
+
+val count_wildcards = g (fn _ => 1) (fn _ => 0)
+
+(* (b) Use g to define a function count_wild_and_variable_lengths that takes a pattern and returns the number of Wildcard patterns it contains plus the sum of the string lengths of all the variables in the variable patterns it contains. (Use String.size. We care only about variable names; the constructor names are not relevant.) *)
+
+
+val count_wild_and_variable_lengths = g (fn _ => 1) (fn s => String.size(s))

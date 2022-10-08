@@ -75,3 +75,14 @@ fun longest_capitalized str_list = (longest_string3 o only_capitals) str_list
 (* 6. Write a function rev_string that takes a string and returns the string that is the same characters in reverse order. Use ML’s o operator, the library function rev for reversing lists, and two library functions in the String module. (Browse the module documentation to find the most useful functions.) *)
 
 fun rev_string str = (String.implode o List.rev o String.explode) str
+
+
+
+(* 7. Write a function first_answer of type (’a -> ’b option) -> ’a list -> ’b (notice the 2 arguments are curried). The first argument should be applied to elements of the second argument in order until the first time it returns SOME v for some v and then v is the result of the call to first_answer. If the first argument returns NONE for all list elements, then first_answer should raise the exception NoAnswer. Hints: Sample solution is 5 lines and does nothing fancy. *)
+
+fun first_answer f elems =
+    case elems of
+	[] => raise NoAnswer
+      | elem::elems' => case f elem of
+			    NONE => first_answer f elems'
+			  | SOME v => v

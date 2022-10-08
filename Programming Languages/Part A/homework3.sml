@@ -124,3 +124,7 @@ val count_wildcards = g (fn _ => 1) (fn _ => 0)
 
 
 val count_wild_and_variable_lengths = g (fn _ => 1) (fn s => String.size(s))
+
+(* (c) Use g to define a function count_some_var that takes a string and a pattern (as a pair) and returns the number of times the string appears as a variable in the pattern. We care only about variable names; the constructor names are not relevant. *)
+
+fun count_some_var (str, p) = g (fn _ => 0) (fn s => if s = str then 1 else 0) p				

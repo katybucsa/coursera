@@ -93,11 +93,10 @@ fun first_answer f elems =
 
 fun all_answers f elems =
     let
-	fun local_helper_f [] [] = NONE
-	  | local_helper_f acc [] = SOME acc
+	fun local_helper_f acc [] = SOME acc
 	  | local_helper_f acc (elem::elems') = case f elem of
-					      NONE => local_helper_f acc elems'
-					    | SOME l => local_helper_f (acc @ l) elems' 
+						    NONE => NONE
+						  | SOME l => local_helper_f (acc @ l) elems'
     in
 	local_helper_f [] elems
     end
@@ -140,15 +139,14 @@ fun check_pat pat =
 	    case pat of
 		Variable s => s::acc
 	      | TupleP list_patterns => List.foldl (fn (p, acc) => get_all_strings acc p) acc list_patterns
-	      | ConstructorP (s, pat') => get_all_strings (s::acc) pat'
 	      | _ => acc
 
 	fun check_uniq_elems str_list =
 	    case str_list of
 		[] => true
-	      | s::str_list' => case List.exists (fn x => x = s) str_list' of
-				    true => false
-				  | _ => check_uniq_elems str_list'
+	      | s::str_list' => if List.exists (fn x => x = s) str_list'
+				then false
+				else check_uniq_elems str_list'
     in
 	check_uniq_elems (get_all_strings [] pat)
     end
@@ -159,17 +157,22 @@ fun check_pat pat =
 
 fun match (valuu, pat) =
     case (valuu, pat) of
-	((_, Wildcard) | (Unit, UnitP) | (Const _, ConstP _)) => SOME []
+	((_, Wildcard) | (Unit, UnitP)) => SOME []
       | (_, Variable s) => SOME [(s, valuu)]
+      | (Const v, ConstP p) => if v = p then SOME [] else NONE
       | (Tuple vs, TupleP ps) => if List.length vs = List.length ps
 				 then all_answers match (ListPair.zip(vs, ps))
 				 else NONE
       | (Constructor (s1, v), ConstructorP (s2, p)) => if s1 = s2 then match (v, p) else NONE
       | _ => NONE
-								 
-
+	
+	
 
 (* 12. Write a function first_match that takes a value and a list of patterns and returns a (string * valu) list option, namely NONE if no pattern in the list matches or SOME lst where lst is the list of bindings for the first pattern in the list that matches. Use first_answer and a handle-expression. Hints: Sample solution is 3 lines. *)
 
 fun first_match valuu pat_list =
     SOME (first_answer (fn el => match (valuu, el)) pat_list) handle NoAnswer => NONE
+
+
+
+(* *)

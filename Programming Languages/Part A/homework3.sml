@@ -139,6 +139,7 @@ fun check_pat pat =
 	    case pat of
 		Variable s => s::acc
 	      | TupleP list_patterns => List.foldl (fn (p, acc) => get_all_strings acc p) acc list_patterns
+	      | ConstructorP (s,p) => get_all_strings acc p
 	      | _ => acc
 
 	fun check_uniq_elems str_list =
@@ -175,4 +176,8 @@ fun first_match valuu pat_list =
 
 
 
-(* *)
+(* (Challenge Problem) Write a function typecheck_patterns that “type-checks” a pattern list. Types
+for our made-up pattern language are defined by: datatype typ *)
+
+(*fun typecheck_patterns = (* ((string * string * typ) list) * (pattern list) -> typ option *)*)
+    

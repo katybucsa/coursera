@@ -1,4 +1,4 @@
-(* 1.  Write a function compose_opt : ('b -> 'c option) -> ('a -> 'b option) -> 'a -> 'c option|compose_opt : (’b -> ’c option) -> (’a -> ’b option) -> ’a -> ’c option that composes two functions with "optional" values. If either function returns \verb|NONE|NONE, then the result is \verb|NONE|NONE. *)
+(* 1.  Write a function compose_opt : ('b -> 'c option) -> ('a -> 'b option) -> 'a -> 'c option|compose_opt : (’b -> ’c option) -> (’a -> ’b option) -> ’a -> ’c option that composes two functions with "optional" values. If either function returns NONE, then the result is NONE. *)
 
 fun compose_opt f g x =
     let
@@ -28,3 +28,17 @@ fun fact el =
     in
 	#2 res
     end
+
+
+
+(* 4.  Use do_until to write a function fixed_point: (''a -> ''a) -> ''a -> ''a that given a function f and an initial value x applies f to x until f x = x. (Notice the use of '' to indicate equality types.) *)
+
+fun fixed_point f x =
+    let
+	val r = f x
+    in
+	if r = x
+	then x
+	else fixed_point f r
+    end
+

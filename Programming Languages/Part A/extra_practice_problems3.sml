@@ -11,7 +11,7 @@ fun compose_opt f g x =
 
 
 
-(* 2. Write a function \verb|do_until : ('a -> 'a) -> ('a -> bool) -> 'a -> 'a|do_until : (’a -> ’a) -> (’a -> bool) -> ’a -> ’a.   \verb|do_until f p x|do_until f p x will apply \verb|f to x|f to x and \verb|f|f again to that result and so on until \verb|p x|p x is \verb|false|false.  Example: \verb|do_until (fn x => x div 2) (fn x => x mod 2 <> 1)|do_until (fn x => x div 2) (fn x => x mod 2 <> 1) will evaluate to a function of type \verb|int->int|int->int that divides its argument by \verb|2|2 until it reaches an odd number. In effect, it will remove all factors of \verb|2|2 its argument. *)
+(* 2. Write a function do_until : ('a -> 'a) -> ('a -> bool) -> 'a -> 'a. do_until f p x will apply f to x and f again to that result and so on until p x is false.  Example: do_until (fn x => x div 2) (fn x => x mod 2 <> 1) will evaluate to a function of type int->int that divides its argument by 2 until it reaches an odd number. In effect, it will remove all factors of 2 its argument. *)
 
 fun do_until f p x =
     case p x of
@@ -19,6 +19,8 @@ fun do_until f p x =
       | true => do_until f p (f x)
 
 
+
+(* 3. Use do_until to implement factorial. *)
 
 fun fact el =
     let

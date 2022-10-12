@@ -18,3 +18,11 @@ fun do_until f p x =
 	false => x
       | true => do_until f p (f x)
 
+
+
+fun fact el =
+    let
+	val res = do_until (fn x => ((#1 x) - 1,(#1 x) * (#2 x))) (fn x => #1 x > 1) (el, 1)
+    in
+	#2 res
+    end
